@@ -26,6 +26,10 @@ ai_revision_log: FAIL
 
 Exit codes: `0` all projects pass, `1` at least one project fails, `2` at least one project could not be fetched.
 
+### GitHub Actions
+
+The [Check Drupal projects](./.github/workflows/check-projects.yml) workflow runs the checker on demand (it has no schedule). In the repository's Actions tab, choose **Check Drupal projects**, click **Run workflow**, and enter the project machine names separated by spaces or commas (e.g. `dkan_ai_query ai_revision_log`). The job fails if any project fails a criterion or cannot be fetched.
+
 ### Criteria
 
 | Criterion | Passes when | Recommendation |
@@ -52,7 +56,7 @@ Exit codes: `0` all projects pass, `1` at least one project fails, `2` at least 
     - A client or partner supporting organization is listed
     - Retired projects follow the retirement steps (Unsupported, Obsolete, Not covered)
     - Project has a `README.md`, `CONTRIBUTING.md`, and `.gitlab-ci.yml`
-- [ ] Generate a GitHub Actions workflow that runs the checker, on a schedule and on demand, against a list of projects, and fails when any project does not pass.
-- [ ] Read the list of projects to check from a file instead of command-line arguments (needed for the workflow).
+- [ ] Add a scheduled run of the GitHub Actions workflow against a maintained list of projects (the workflow is on-demand only today).
+- [ ] Read the list of projects to check from a file instead of command-line arguments (needed for the scheduled run).
 - [ ] Add an option to limit the maintainer check to client and initiative projects.
 - [ ] Add tests for the attribution and maintainer checks, using saved API responses as fixtures.

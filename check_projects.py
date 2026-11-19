@@ -14,6 +14,7 @@ Exit code is 0 when every project passes all criteria, 1 otherwise, 2 on fetch e
 """
 import argparse
 import json
+import re
 import sys
 import urllib.error
 import urllib.parse
@@ -70,6 +71,8 @@ def fetch_maintainers(name):
 
 
 def check(name):
+    if not re.fullmatch(r"[a-z0-9_]+", name):
+        raise ValueError(f"'{name}' is not a valid project machine name")
     attribution = fetch_attribution(name)
     maintainers = fetch_maintainers(name)
 

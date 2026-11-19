@@ -1,0 +1,25 @@
+name: Check Drupal projects
+
+on:
+  workflow_dispatch:
+    inputs:
+      projects:
+        description: Drupal project machine names, separated by spaces or commas (e.g. dkan_ai_query ai_revision_log)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check projects
+        env:
+          PROJECTS: ${{ inputs.projects }}
+        run: |
+          read -ra projects <<< "${PROJECTS//,/ }"
+          python3 check_projects.py "${projects[@]}"
